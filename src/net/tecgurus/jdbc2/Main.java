@@ -1,10 +1,8 @@
 package net.tecgurus.jdbc2;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import net.tecgurus.jdbc2.dao.AlumnoDao;
 import net.tecgurus.jdbc2.model.Menu;
 
 
@@ -25,7 +23,8 @@ public class Main {
 			System.out.println();
 			menu.mostrarMenu();
 			menu.setOpcion(sc.nextLine());
-			try {				
+			try {		
+				
 				switch (menu.getOpcion()) {
 				case 1:				
 					menu.agregar();
@@ -60,6 +59,6 @@ public class Main {
 			
 			
 		}while(menu.getOpcion() != 5 );		
-		sc.close();			
+		//sc.close();			
 	}
 }

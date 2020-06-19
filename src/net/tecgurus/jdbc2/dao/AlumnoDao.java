@@ -36,7 +36,7 @@ private final ConnectionFactory connectionFactory = new ConnectionFactory();
 				}rs.close();
 			}
 			select.close();
-			connection.close();							
+			//connection.close();							
 		}		
 		return listAlumnos;
 	}
@@ -78,6 +78,9 @@ private final ConnectionFactory connectionFactory = new ConnectionFactory();
 			 insert.setString(2, alumno.getEmail());
 			 insert.setInt(3, alumno.getEdad());
 			 String genero = String.valueOf(alumno.getGenero()); 
+				if(genero!=null) {
+					 insert.setString(4, genero);
+				}
 			 insert.setString(4, genero);			 
 			 insert.executeUpdate(); //se usa para insert, update,delete			 
 			 insert.close();
