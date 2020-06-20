@@ -71,17 +71,20 @@ private final ConnectionFactory connectionFactory = new ConnectionFactory();
 	
 	public void agregar(Alumno alumno) throws SQLException, ClassNotFoundException {
 		Connection connection = connectionFactory.conectar(); 		
+		 String genero ="";
 		if(connection != null) {
 			String query ="INSERT INTO alumnos (nombre,email,edad,genero) VALUES(?,?,?,?);";
 			 PreparedStatement insert = connection.prepareStatement(query);
 			 insert.setString(1, alumno.getNombre());
 			 insert.setString(2, alumno.getEmail());
 			 insert.setInt(3, alumno.getEdad());
-			 String genero = String.valueOf(alumno.getGenero()); 
-				if(genero!=null) {
+			 genero = String.valueOf(alumno.getGenero()); 
+			 if(genero!=null) {
 					 insert.setString(4, genero);
-				}
-			 insert.setString(4, genero);			 
+			 }
+			 else {
+				 insert.setString(4, genero);
+			 } 
 			 insert.executeUpdate(); //se usa para insert, update,delete			 
 			 insert.close();
 			 //connection.close();

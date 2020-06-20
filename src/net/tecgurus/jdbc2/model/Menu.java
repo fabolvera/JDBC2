@@ -32,27 +32,29 @@ public class Menu {
 		
 	}
 	public int cleanOpcion(String teclado) {
-		int opc;
-		String temp = teclado.trim().toLowerCase();	
-		switch (temp) {
-			case "1":				
-				opc=1;
-				break;
-			case "2":				
-				opc=2;
-				break;
-			case "3":				
-				opc=3;
-				break;
-			case "4":				
-				opc=4;
-				break;
-			case "5":				
-				opc=5;				
-				break;
-			default:				
-				opc=0;
-				break;
+		int opc=0;
+		if (teclado.trim().length()>0){
+			String temp = teclado.trim().toLowerCase();	
+			switch (temp) {
+				case "1":				
+					opc=1;
+					break;
+				case "2":				
+					opc=2;
+					break;
+				case "3":				
+					opc=3;
+					break;
+				case "4":				
+					opc=4;
+					break;
+				case "5":				
+					opc=5;				
+					break;
+			}
+		}
+		else {
+			opc=0;
 		}
 		return opc;
 	}
@@ -86,35 +88,33 @@ public class Menu {
 	}
 	
 	public void agregar() throws SQLException, ClassNotFoundException {
-		//String genero;
+		char genero='N';
 		String nombre;
 		String email;
 		int edad;
-		System.out.println("Selecciono Agregar");
-		Scanner sc = new Scanner(System.in);			
-		AlumnoDao alumnoDao = new AlumnoDao();
-		Alumno alumno = new Alumno();
-		
+		//System.out.println("Selecciono Agregar");
+		Scanner in = new Scanner(System.in);	
 		System.out.println("Ingresar el nombre: ");
-		nombre =sc.nextLine();
-		alumno.setNombre(nombre);	
+		nombre =in.nextLine();			
 		System.out.print("Ingresar el correo: ");
-		email =sc.nextLine();
-		alumno.setEmail(email);
+		email =in.nextLine();		
 		System.out.print("Ingresar la edad: ");
-		edad =sc.nextInt();
+		edad =in.nextInt();
+		System.out.print("Ingresar genero M o F: ");
+		//genero =sc.nextLine();	
+		genero = in.next().charAt(0);			
+				//System.out.println("Genero: " + genero);
+				//Exception : Ingresar genero M o F: java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+		in.close();
+		Alumno alumno = new Alumno();
+		alumno.setNombre(nombre);
+		alumno.setEmail(email);
 		alumno.setEdad(edad);
-		/*System.out.print("Ingresar genero M o F: ");		
-			genero = sc.nextLine(); 
-			if(genero !=null)
-				alumno.setGenero(genero.charAt(0));
-			else
-				System.out.println("Genero: " + genero);
-				Exception : Ingresar genero M o F: java.lang.StringIndexOutOfBoundsException: String index out of range: 0
-		*/		
-		System.out.println(alumno);		
+		alumno.setGenero(genero);
+		System.out.println(alumno);			
+		AlumnoDao alumnoDao = new AlumnoDao();	
 		alumnoDao.agregar(alumno);
-		sc.close();
+		
 	}
 	
 	public void listar() throws SQLException, ClassNotFoundException {
